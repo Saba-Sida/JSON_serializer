@@ -116,19 +116,16 @@ namespace JSON_serializer.src
 
             if (someObject == null) return null!;
 
-            // Handle primitives
             if (targetType == typeof(string)) return someObject.ToString()!;
             if (targetType.IsPrimitive || targetType == typeof(decimal) || targetType == typeof(double) || targetType == typeof(float) || targetType == typeof(long) || targetType == typeof(int))
                 return Convert.ChangeType(someObject, targetType, CultureInfo.InvariantCulture);
 
-            // Handle Nullable<T>
             if (Nullable.GetUnderlyingType(targetType) != null)
             {
                 Type underlying = Nullable.GetUnderlyingType(targetType)!;
                 return ConvertToType(someObject, underlying);
             }
 
-            // Handle List<T>
             if (targetType.IsGenericType && targetType.GetGenericTypeDefinition() == typeof(List<>))
             {
                 Type itemType = targetType.GetGenericArguments()[0];
@@ -141,7 +138,6 @@ namespace JSON_serializer.src
                 return resultList;
             }
 
-            // Handle Dictionary<string, object> to class mapping
             if (someObject is Dictionary<string, object> dict)
             {
                 object instance = Activator.CreateInstance(targetType)!;
@@ -159,7 +155,6 @@ namespace JSON_serializer.src
                 return instance;
             }
 
-            // Fallback
             return someObject;
         }
         #endregion
