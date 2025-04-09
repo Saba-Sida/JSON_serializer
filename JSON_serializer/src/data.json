@@ -1,0 +1,15 @@
+﻿{
+  "Name": "Saba",
+  "Age": 20,
+  "IsAdult": true,
+  "Dogs": [
+    {
+      "DogName": "Mura",
+      "Age": 5
+    },
+    {
+      "DogName": "Zuzu",
+      "Age": 3
+    }
+  ]
+}
